@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Baidu Security Lab Reverser</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">百度安全实验室逆向分析工具，主要用于Android病毒逆向分析。</string>
+
+</resources>
