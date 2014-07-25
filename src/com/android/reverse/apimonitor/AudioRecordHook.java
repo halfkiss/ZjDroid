@@ -1,9 +1,6 @@
 package com.android.reverse.apimonitor;
 
 import java.lang.reflect.Method;
-
-import android.media.MediaSyncEvent;
-
 import com.android.reverse.hook.HookParam;
 import com.android.reverse.util.Logger;
 import com.android.reverse.util.RefInvoke;
