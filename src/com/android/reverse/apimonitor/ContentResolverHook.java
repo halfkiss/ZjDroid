@@ -2,12 +2,13 @@ package com.android.reverse.apimonitor;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.os.CancellationSignal;
 import android.text.TextUtils;
 import com.android.reverse.hook.HookParam;
 import com.android.reverse.util.Logger;
@@ -71,7 +72,7 @@ public class ContentResolverHook extends ApiMonitorHook {
 		sb.append("[" + uri.toString() + "]");
 		sb.append(" ( ");
 		String[] keysArray = new String[cv.size()];
-		keysArray = cv.keySet().toArray(keysArray);
+		keysArray = this.getContentValuesKeySet(cv).toArray(keysArray);
 		sb.append(concatenateStringArray(keysArray, ","));
 		sb.append(" ) ");
 		sb.append(" values (");
@@ -109,7 +110,7 @@ public class ContentResolverHook extends ApiMonitorHook {
 		sb.append(" update ");
 		sb.append("[" + uri.toString() + "]");
 		sb.append(" set ");
-		String[] keysArray = (String[]) cv.keySet().toArray();
+		String[] keysArray = (String[]) this.getContentValuesKeySet(cv).toArray();
 		for (int i = 0; i < keysArray.length; i++) {
 			if (i == keysArray.length - 1)
 				sb.append(" " + keysArray[i] + "=" + cv.get(keysArray[i]));
@@ -135,7 +136,7 @@ public class ContentResolverHook extends ApiMonitorHook {
 	public void startHook() {
 
 		Method querymethod = RefInvoke.findMethodExact("android.content.ContentResolver", ClassLoader.getSystemClassLoader(), "query", Uri.class,
-				String[].class, String.class, String[].class, String.class, CancellationSignal.class);
+				String[].class, String.class, String[].class, String.class);
 		hookhelper.hookMethod(querymethod, new AbstractBahaviorHookCallBack() {
 
 			@Override
@@ -252,6 +253,11 @@ public class ContentResolverHook extends ApiMonitorHook {
 		});
 
 	}
+	
+	private Set<String> getContentValuesKeySet(ContentValues cv){
+		HashMap<String,Object> mValue =  (HashMap<String,Object>) RefInvoke.getFieldOjbect("android.content.ContentValues", cv, "mValues");
+		return mValue.keySet();
+	} 
 
 	private final static int TYPE_INSERT = 1;
 	private final static int TYPE_UPDATE = 2;

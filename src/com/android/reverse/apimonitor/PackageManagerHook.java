@@ -28,8 +28,6 @@ public class PackageManagerHook extends ApiMonitorHook {
 					Logger.log_behavior("Component New State = " + "COMPONENT_ENABLED_STATE_DISABLED");
 				if (newState == PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
 					Logger.log_behavior("Component New State = " + "COMPONENT_ENABLED_STATE_ENABLED");
-				if (newState == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
-					Logger.log_behavior("Component New State = " + "COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED");
 				if (newState == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER)
 					Logger.log_behavior("Component New State = " + "COMPONENT_ENABLED_STATE_DISABLED_USER");
 				if (newState == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)

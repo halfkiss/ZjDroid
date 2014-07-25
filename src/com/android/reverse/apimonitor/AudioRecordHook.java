@@ -25,17 +25,6 @@ public class AudioRecordHook extends ApiMonitorHook {
 			}
 		});
 		
-		Method startRecordingWithSyncMethod = RefInvoke.findMethodExact(
-				"android.media.AudioRecord", ClassLoader.getSystemClassLoader(),
-				"startRecording",MediaSyncEvent.class);
-		hookhelper.hookMethod(startRecordingWithSyncMethod, new AbstractBahaviorHookCallBack() {
-			
-			@Override
-			public void descParam(HookParam param) {
-				// TODO Auto-generated method stub
-				Logger.log_behavior("Audio Recording ->");
-			}
-		});
 	}
 
 }
